@@ -1,0 +1,81 @@
+<h2 class="text-center"><span class="label label-default header">Task Management Tool</span></h2>
+<h3><span class="label label-default">Create Task</span> <span class="clock">{{ clock | date:'yyyy-MM-dd HH:mm:ss'}}</span></h3>
+<form name="taskForm" ng-init="init();" class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" ng-model="task.name"  required/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Description</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" ng-model="task.description"  required/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Deadline</label>
+        <div class="col-sm-10">
+            <input type="datetime" class="form-control" name="deadline" date-time auto-close="true" ng-model="task.deadline" autocomplete="off" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Status</label>
+        <div class="radio col-sm-1">
+            <label>
+                <input type="radio" ng-model="task.done" value="0" />New
+            </label>
+        </div>
+        <div class="radio col-sm-1">
+            <label>
+                <input type="radio" ng-model="task.done" value="1" />Done
+            </label>
+        </div>
+    </div>
+    </p>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="button" class="btn btn-default" ng-click="reset(taskForm)">Reset</button>
+            <button type="submit" class="btn btn-primary" ng-click="create(task)">Create</button>
+        </div>
+    </div>
+</form>
+</br><hr>
+<h3><span class="label label-default">List Task</span></h3>
+<div ng-hide="rowCollection.length" class="alert alert-warning" role="alert">There is no task !</div>
+<table ng-show="rowCollection.length" st-safe-src="rowCollection" st-table="displayedCollection" class="table table-striped">
+    <thead>
+        <tr>
+            <th st-sort="id">Id</th>
+            <th st-sort="name">Name</th>
+            <th st-sort="description">Description</th>
+            <th st-sort="deadline">Deadline</th>
+            <th st-sort="done">Status</th>
+            <th>Resolve</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="row in displayedCollection">
+        <td>{{ row.id }}</td>
+        <td class="word-break">{{ row.name }}</td>
+        <td class="word-break">{{ row.description }}</td>
+        <td>{{ row.deadline | date:'yyyy-MM-dd HH:mm' }}</td>
+        <td>{{ row.done ? 'Done' : 'New' }}</td>
+        <td class="text-center">
+            <button type="button" ng-if="!row.done" ng-click="resolve(row.id)" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-ok
+"></i></button>
+            <span ng-if="row.done" class="label label-success"><i class="glyphicon glyphicon-ok-sign"></i></span>
+        </td>
+        <td class="text-center"><button type="button" ng-click="remove(row.id)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash
+"></i></button></td>
+    </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="7" class="text-center">
+                <div st-pagination="" st-items-by-page="5"></div>
+            </td>
+        </tr>
+    </tfoot>
+</table>

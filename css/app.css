@@ -1,0 +1,31 @@
+.header {
+    background-color: #715E9E;
+}
+
+h2, h3 {
+    font-family: monospace !important;
+}
+
+.st-sort-ascent:before{
+    content: '\25B2';
+}
+
+.st-sort-descent:before{
+    content: '\25BC';
+}
+
+a, .table th {
+    cursor: pointer;
+}
+.table td.word-break {
+    word-break: break-all;
+}
+
+.label-success.label {
+    padding: .3em .45em .3em;
+    font-size: 100%;
+}
+
+.clock {
+    font-size: 14px;
+}
